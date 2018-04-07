@@ -23,17 +23,16 @@ Dependencies
 -------------------
 - python 2.7
 - python packages: python-dev, sympy, numpy, scipy
-- gcc
+- gcc or whatever C compiler
 - [Z3](https://github.com/Z3Prover/z3/releases/tag/z3-4.5.0) (Note: Z3 is used as a parser of SMT2 files) 
 
 
 Running Xsat
 ----------------------
-To resolve runtime dependencies, you probably need to set environment variables (such as LD\_LIBRARY\_PATH or PYTHONPATH) or variables defined in `Makefile`. 
-
 
 #### Running from the source
 
+To resolve runtime dependencies, you probably need to set environment variables (such as LD\_LIBRARY\_PATH or PYTHONPATH) or variables defined in `Makefile`. 
 Consider a benchmark constraint located at `Benchmarks/div3.c.50.smt2`.  The first command below compiles the constraint into a C shared object. The second command below invokes an external stochastic optimization backend to solve the constraint.
 
 ```bash
@@ -62,5 +61,7 @@ Testing Xsat
 ```bash
 $ python test_benchmarks.py 
 ```
-This command tests Xsat on a suite of the 34 benchmarks used in the [paper, table 1](http://zhoulaifu.com/wp-content/papercite-data/pdf/xsat.pdf). To test only a subset of these benchmarks, use `python test_benchmarks.py --quick <n>` where `n` is a positive integer. With n = 10, the command  tests the 10th, 20th and 30th benchmark of the suite.
+This command  tests Xsat on a suite of the 34 benchmarks used in the [paper, table 1](http://zhoulaifu.com/wp-content/papercite-data/pdf/xsat.pdf). To test only a subset of these benchmarks, use `python test_benchmarks.py --quick <n>` where `n` is a positive integer. With n = 10, the command  tests the 10th, 20th and 30th benchmark of the suite.
+
+We have tested Xsat on Mac OS and Linux. 
 
