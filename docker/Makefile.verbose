@@ -1,0 +1,71 @@
+DLIBFLAG=-shared
+
+XSAT_ := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+OUT_=$(XSAT_)/out
+R_SQUARE_=$(OUT_)/R_square
+R_ULP_=$(OUT_)/R_ulp
+R_VERIFY_=$(OUT_)/R_verify
+
+XSAT_GEN=$(XSAT_)/xsat_gen.py
+
+ifdef IN
+   $(shell echo $(IN) > XSAT_IN.txt)
+endif
+
+
+IN:= $(shell cat XSAT_IN.txt)
+
+define XSAT_echo
+	@echo "[XSat] $1 "
+endef
+
+
+all:  compile
+
+gen:  build/foo.c xsat_gen.py
+build/foo.c: $(IN)  XSAT_IN.txt #include/R_square/xsat.h include/R_ulp/xsat.h include/R_verify/xsat.h
+	@echo "[XSAT] .smt2 -> .c"
+	@mkdir -p build
+	$(MYPYTHON) xsat_gen.py $<  > $@
+
+compile_square: build/R_square/foo.so
+build/R_square/foo.so: build/foo.c include/R_square/xsat.h  $(IN) 
+	@echo [XSAT]Compiling the representing function as $@
+	@mkdir -p build/R_square
+	gcc -O3 -fPIC $< $(DLIBFLAG) -o $@  -I $(PYTHONINC) -I include/R_square  -L $(PYTHONLIB) -lpython2.7
+
+compile_verify: build/R_verify/foo.so
+build/R_verify/foo.so: build/foo.c include/R_verify/xsat.h  $(IN) 
+	@echo [XSAT]Compiling the representing function as $@
+	@mkdir -p build/R_verify
+	gcc -O3 -fPIC $< $(DLIBFLAG) -o $@  -I $(PYTHONINC) -I include/R_verify  -L $(PYTHONLIB) -lpython2.7
+
+compile_ulp: build/R_ulp/foo.so
+build/R_ulp/foo.so: build/foo.c include/R_ulp/xsat.h  $(IN) 
+	@echo [XSAT]Compiling the representing function as $@
+	@mkdir -p build/R_ulp
+	gcc -O3 -fPIC $< $(DLIBFLAG) -o $@  -I $(PYTHONINC) -I include/R_ulp  -L $(PYTHONLIB) -lpython2.7
+
+
+#compile: compile_square compile_verify compile_ulp
+compile:  compile_ulp compile_verify
+
+solve: compile
+	@echo [XSAT] Executing the solver.
+	python xsat.py 
+
+
+
+
+
+
+clean:
+	$(XSAT_echo) Cleaning build/
+	@rm -vf build/foo.c build/foo.symbolTable
+	@rm -vfr build/R_square build/R_ulp build/R_verify
+
+
+
+.PHONY: copy gen clean compile compile_square
+
+
