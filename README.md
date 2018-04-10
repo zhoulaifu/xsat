@@ -29,6 +29,10 @@ Dependencies
 
 Running Xsat
 ----------------------
+Note:
+1. To resolve runtime dependencies, you probably need to set environment variables (such as LD\_LIBRARY\_PATH or PYTHONPATH) or variables defined in `Makefile`. 
+
+2. The option `-fbracket-depth` in `Makefile` is from Clang. Gcc does not have that option. The option is to deal with situations where the generated C file gets many brackets. You can disable that option in Makefile and you should be fine most of the time. Meanwhile, I plan to optimize a bit the algorithm (there is large room!) to avoid generating too many brackets, so hopefully, that option can be safely removed in the future. 
 
 #### Running from the source
 
