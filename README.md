@@ -21,8 +21,8 @@ Dependencies
 -------------------
 - python 2.7
 - python packages: python-dev, sympy, numpy, scipy
-- Clang/gcc
-- [Z3](https://github.com/Z3Prover/z3/releases/tag/z3-4.5.0) (used for parsing SMT2 files) 
+- Clang (preferred, which allows you to use the `-fbracket-depth` option, see below), or gcc
+- Z3 (I used its 4.5.0 version for parsing SMT2 files) 
 
 
 Running XSat
