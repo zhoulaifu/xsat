@@ -8,11 +8,16 @@ ____  ____ ________        __
 ```
 XSat is a fast floating-point constraint solver. Evaluated on 34 representative
 SMT Competition benchmarks, XSat provides consistent satisfiability results as
-MathSat and Z3, and an average of more than 700X performance speedup. XSat
-currently supports the arithmetic operations of the QF\_FP (Quantifier-Free
+MathSat and Z3, and an average of more than 700X performance speedup. 
+
+DISCLAIMER: XSat currently does _not_ supports all QF\_FP operations. This
+version supports the arithmetic operations of the QF\_FP (Quantifier-Free
 Floating-Point) theory, including: fp.leq, fp.lt, fp.geq, fp.gt, fp.eq, fp.neg,
-fp.add, fp.mult, fp.sub and fp.div. See details in [Fu and Su's CAV'16
-paper](http://zhoulaifu.com/wp-content/papercite-data/pdf/xsat.pdf).
+fp.add, fp.mult, fp.sub and fp.div.  
+
+See [Fu and Su's CAV'16
+paper](http://zhoulaifu.com/wp-content/papercite-data/pdf/xsat.pdf) for the
+algorithm and implementation details.
 
 
 
@@ -50,13 +55,14 @@ Note: the second command above can be supplemented with a range of options.  Use
 
 #### Running from the docker
 
+Note: The docker is provided for your convenience, but code maintenance is only on the source. 
+
 First, get the image and start the container:
 ```bash
 docker pull martinvelez/xsat
 docker run -it martinvelez/xsat:latest bash
 ```
 Then, run XSat from  the source.
-
 
 Testing XSat
 --------------
