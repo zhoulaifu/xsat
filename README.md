@@ -1,3 +1,7 @@
+_I have been working on other projects recently and haven't had the stamina to keep things up to date. I may take up maintainership up again in the future._
+
+
+
 ```
 ____  ____ ________        __  
 \   \/   //  _____/____  _/  |_
